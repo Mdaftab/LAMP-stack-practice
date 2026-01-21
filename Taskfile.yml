@@ -76,7 +76,7 @@ tasks:
       - docker stats lamp-demo --no-stream 2>/dev/null || echo "Container not running"
 
   # ---------------------------------------------------------------------------
-  # shell - Open Shell in Container sameeer
+  # shell - Open Shell in Container aftab
   # ---------------------------------------------------------------------------
   # Opens a bash shell inside the running container.
   # Useful for debugging and exploring the Linux environment.
