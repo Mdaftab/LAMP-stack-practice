@@ -1,0 +1,44 @@
+---
+description: LAMP Stack Demo Project Standards and Conventions
+alwaysApply: true
+---
+
+# LAMP Stack Project Rules
+
+## Project Context
+
+This is a LAMP (Linux, Apache, MySQL, PHP) demo project for learning purposes. All components run in a single Docker container.
+
+## Key Files Reference
+
+- `docker/Dockerfile` - Single-container LAMP setup
+- `app/config.php` - Database connection settings
+- `app/index.php` - Main PHP application
+- `Taskfile.yml` - Task automation commands
+- `requirment.txt` - Project requirements
+
+## Development Guidelines
+
+### PHP Code
+
+- Use `mysqli_*` functions for MySQL connectivity
+- Always escape user input with `mysqli_real_escape_string()`
+- Use `htmlspecialchars()` when outputting user data to HTML
+- Include detailed comments explaining each code block
+
+### Docker
+
+- Keep all services in the single-container approach
+- Use Supervisor to manage multiple processes
+- Mount `app/` directory for live development
+- Preserve MySQL data with named volumes
+
+### Taskfile Commands
+
+Standard commands: `task up`, `task down`, `task logs`, `task shell`, `task mysql`
+
+### Documentation
+
+- Add educational comments explaining "why" not just "what"
+- Keep code beginner-friendly with clear explanations
+- Update README.md when adding new features

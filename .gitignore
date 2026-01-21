@@ -1,0 +1,23 @@
+# OS files
+.DS_Store
+Thumbs.db
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# Docker volumes (data is local only)
+mysql_data/
+
+# Environment files (if added later)
+.env
+.env.local
+
+# Logs
+*.log
+
+# Temporary files
+*.tmp
+*.temp

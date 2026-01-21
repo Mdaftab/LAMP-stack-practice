@@ -1,0 +1,391 @@
+/**
+ * =============================================================================
+ * LAMP Demo Application Styles
+ * =============================================================================
+ * Clean, modern styling for the demo application.
+ * Uses CSS custom properties (variables) for easy customization.
+ * =============================================================================
+ */
+
+/* -----------------------------------------------------------------------------
+   CSS Custom Properties (Variables)
+   ----------------------------------------------------------------------------- */
+:root {
+    --primary-color: #2563eb;
+    --primary-hover: #1d4ed8;
+    --danger-color: #dc2626;
+    --danger-hover: #b91c1c;
+    --success-color: #16a34a;
+    --success-bg: #dcfce7;
+    --error-color: #dc2626;
+    --error-bg: #fee2e2;
+    --text-color: #1f2937;
+    --text-light: #6b7280;
+    --bg-color: #f3f4f6;
+    --card-bg: #ffffff;
+    --border-color: #e5e7eb;
+    --shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    --shadow-lg: 0 4px 6px rgba(0, 0, 0, 0.1);
+    --radius: 8px;
+}
+
+/* -----------------------------------------------------------------------------
+   Reset & Base Styles
+   ----------------------------------------------------------------------------- */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, 
+                 Ubuntu, Cantarell, sans-serif;
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    line-height: 1.6;
+    min-height: 100vh;
+}
+
+/* -----------------------------------------------------------------------------
+   Container & Layout
+   ----------------------------------------------------------------------------- */
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 2rem;
+}
+
+/* -----------------------------------------------------------------------------
+   Header
+   ----------------------------------------------------------------------------- */
+header {
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+header h1 {
+    font-size: 2.5rem;
+    color: var(--primary-color);
+    margin-bottom: 0.5rem;
+}
+
+.subtitle {
+    color: var(--text-light);
+    font-size: 1.1rem;
+}
+
+/* -----------------------------------------------------------------------------
+   Sections
+   ----------------------------------------------------------------------------- */
+section {
+    background: var(--card-bg);
+    border-radius: var(--radius);
+    padding: 1.5rem;
+    margin-bottom: 1.5rem;
+    box-shadow: var(--shadow);
+}
+
+section h2 {
+    font-size: 1.25rem;
+    margin-bottom: 1rem;
+    color: var(--text-color);
+    border-bottom: 2px solid var(--border-color);
+    padding-bottom: 0.5rem;
+}
+
+.description {
+    color: var(--text-light);
+    margin-bottom: 1rem;
+    font-size: 0.95rem;
+}
+
+/* -----------------------------------------------------------------------------
+   Info Panel (Stack Information)
+   ----------------------------------------------------------------------------- */
+.info-panel {
+    background: linear-gradient(135deg, #1e3a8a 0%, #2563eb 100%);
+    color: white;
+}
+
+.info-panel h2 {
+    color: white;
+    border-bottom-color: rgba(255, 255, 255, 0.3);
+}
+
+.info-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 1rem;
+    margin-bottom: 1rem;
+}
+
+.info-item {
+    background: rgba(255, 255, 255, 0.1);
+    padding: 1rem;
+    border-radius: var(--radius);
+    text-align: center;
+}
+
+.info-item .label {
+    display: block;
+    font-weight: 600;
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 0.25rem;
+    opacity: 0.9;
+}
+
+.info-item .value {
+    display: block;
+    font-size: 0.9rem;
+    opacity: 0.8;
+}
+
+.connection-status {
+    text-align: center;
+    padding: 0.75rem;
+    border-radius: var(--radius);
+    font-weight: 600;
+}
+
+.connection-status.success {
+    background: rgba(22, 163, 74, 0.2);
+    color: #86efac;
+}
+
+/* -----------------------------------------------------------------------------
+   Messages (Success/Error Feedback)
+   ----------------------------------------------------------------------------- */
+.message {
+    padding: 1rem;
+    border-radius: var(--radius);
+    margin-bottom: 1.5rem;
+    font-weight: 500;
+}
+
+.message.success {
+    background: var(--success-bg);
+    color: var(--success-color);
+    border: 1px solid var(--success-color);
+}
+
+.message.error {
+    background: var(--error-bg);
+    color: var(--error-color);
+    border: 1px solid var(--error-color);
+}
+
+/* -----------------------------------------------------------------------------
+   Forms
+   ----------------------------------------------------------------------------- */
+.form-group {
+    margin-bottom: 1rem;
+}
+
+.form-group label {
+    display: block;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+    color: var(--text-color);
+}
+
+.form-group input {
+    width: 100%;
+    padding: 0.75rem 1rem;
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius);
+    font-size: 1rem;
+    transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.form-group input:focus {
+    outline: none;
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+}
+
+/* -----------------------------------------------------------------------------
+   Buttons
+   ----------------------------------------------------------------------------- */
+.btn {
+    display: inline-block;
+    padding: 0.75rem 1.5rem;
+    font-size: 1rem;
+    font-weight: 600;
+    text-align: center;
+    border: none;
+    border-radius: var(--radius);
+    cursor: pointer;
+    transition: background-color 0.2s, transform 0.1s;
+}
+
+.btn:hover {
+    transform: translateY(-1px);
+}
+
+.btn:active {
+    transform: translateY(0);
+}
+
+.btn-primary {
+    background: var(--primary-color);
+    color: white;
+}
+
+.btn-primary:hover {
+    background: var(--primary-hover);
+}
+
+.btn-danger {
+    background: var(--danger-color);
+    color: white;
+}
+
+.btn-danger:hover {
+    background: var(--danger-hover);
+}
+
+.btn-small {
+    padding: 0.4rem 0.8rem;
+    font-size: 0.85rem;
+}
+
+/* -----------------------------------------------------------------------------
+   Table
+   ----------------------------------------------------------------------------- */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 1rem;
+}
+
+th, td {
+    padding: 0.75rem 1rem;
+    text-align: left;
+    border-bottom: 1px solid var(--border-color);
+}
+
+th {
+    background: var(--bg-color);
+    font-weight: 600;
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    color: var(--text-light);
+}
+
+tr:hover {
+    background: var(--bg-color);
+}
+
+.no-data {
+    text-align: center;
+    color: var(--text-light);
+    padding: 2rem;
+    font-style: italic;
+}
+
+/* -----------------------------------------------------------------------------
+   Data Flow Diagram
+   ----------------------------------------------------------------------------- */
+.flow-diagram {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    margin-top: 1rem;
+}
+
+.flow-step {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    background: var(--bg-color);
+    padding: 1rem;
+    border-radius: var(--radius);
+    min-width: 140px;
+}
+
+.step-number {
+    width: 32px;
+    height: 32px;
+    background: var(--primary-color);
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    flex-shrink: 0;
+}
+
+.step-content strong {
+    display: block;
+    font-size: 0.9rem;
+}
+
+.step-content p {
+    font-size: 0.75rem;
+    color: var(--text-light);
+    margin-top: 0.25rem;
+}
+
+.flow-arrow {
+    color: var(--primary-color);
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+
+/* -----------------------------------------------------------------------------
+   Footer
+   ----------------------------------------------------------------------------- */
+footer {
+    text-align: center;
+    padding: 2rem;
+    color: var(--text-light);
+    font-size: 0.9rem;
+}
+
+footer small {
+    opacity: 0.7;
+}
+
+/* -----------------------------------------------------------------------------
+   Responsive Design
+   ----------------------------------------------------------------------------- */
+@media (max-width: 768px) {
+    .container {
+        padding: 1rem;
+    }
+    
+    header h1 {
+        font-size: 1.75rem;
+    }
+    
+    .info-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    
+    .flow-diagram {
+        flex-direction: column;
+    }
+    
+    .flow-arrow {
+        transform: rotate(90deg);
+    }
+    
+    .flow-step {
+        width: 100%;
+    }
+    
+    table {
+        font-size: 0.85rem;
+    }
+    
+    th, td {
+        padding: 0.5rem;
+    }
+}

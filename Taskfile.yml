@@ -1,0 +1,164 @@
+# =============================================================================
+# Taskfile - LAMP Stack Automation
+# =============================================================================
+# Taskfile is a task runner that simplifies common commands.
+# Instead of remembering long docker-compose commands, just type:
+#   task up    - Start the LAMP stack
+#   task down  - Stop everything
+#   task logs  - View logs
+#
+# Install Task: https://taskfile.dev/installation/
+#   macOS:    brew install go-task
+#   Linux:    sh -c "$(curl -fsSL https://taskfile.dev/install.sh)"
+#   Windows:  choco install go-task
+# =============================================================================
+
+version: '3'
+
+# Default task (runs when you just type 'task')
+default:
+  desc: Show available tasks
+  cmds:
+    - task --list
+
+tasks:
+  # ---------------------------------------------------------------------------
+  # up - Start the LAMP Stack
+  # ---------------------------------------------------------------------------
+  # This is the main command to get everything running.
+  # It builds the Docker image (if needed) and starts the container.
+  up:
+    desc: Build and start the LAMP stack
+    cmds:
+      - echo "Starting LAMP Stack..."
+      - docker-compose up -d --build
+      - echo ""
+      - echo "LAMP Stack is starting!"
+      - echo "Web App - http://localhost:8080"
+      - echo "MySQL - localhost:3307 (user=root, pass=rootpassword)"
+      - echo ""
+      - echo "Note - First startup may take 30-60 seconds for MySQL to initialize."
+      - echo "Run 'task logs' to monitor the startup progress."
+    silent: false
+
+  # ---------------------------------------------------------------------------
+  # down - Stop the LAMP Stack
+  # ---------------------------------------------------------------------------
+  # Stops and removes the container, but preserves the MySQL data volume.
+  down:
+    desc: Stop and remove containers (preserves data)
+    cmds:
+      - echo "Stopping LAMP Stack..."
+      - docker-compose down
+      - echo "LAMP Stack stopped. Data volume preserved."
+
+  # ---------------------------------------------------------------------------
+  # logs - View Container Logs
+  # ---------------------------------------------------------------------------
+  # Shows real-time logs from the container (Apache, MySQL, PHP errors).
+  # Press Ctrl+C to stop watching logs.
+  logs:
+    desc: View container logs (Ctrl+C to exit)
+    cmds:
+      - docker-compose logs -f
+
+  # ---------------------------------------------------------------------------
+  # status - Check Container Status
+  # ---------------------------------------------------------------------------
+  # Shows whether the container is running and its resource usage.
+  status:
+    desc: Show container status
+    cmds:
+      - echo "Container Status"
+      - docker-compose ps
+      - echo ""
+      - echo "Resource Usage"
+      - docker stats lamp-demo --no-stream 2>/dev/null || echo "Container not running"
+
+  # ---------------------------------------------------------------------------
+  # shell - Open Shell in Container
+  # ---------------------------------------------------------------------------
+  # Opens a bash shell inside the running container.
+  # Useful for debugging and exploring the Linux environment.
+  shell:
+    desc: Open bash shell in the container
+    cmds:
+      - echo "Opening shell in container..."
+      - docker exec -it lamp-demo bash
+
+  # ---------------------------------------------------------------------------
+  # mysql - Connect to MySQL CLI
+  # ---------------------------------------------------------------------------
+  # Opens the MySQL command-line client inside the container.
+  # You can run SQL queries directly.
+  mysql:
+    desc: Connect to MySQL command line
+    cmds:
+      - echo "Connecting to MySQL..."
+      - docker exec -it lamp-demo mysql -u root -prootpassword lamp_demo
+
+  # ---------------------------------------------------------------------------
+  # rebuild - Force Rebuild Image
+  # ---------------------------------------------------------------------------
+  # Rebuilds the Docker image from scratch (ignoring cache).
+  # Use this if you've made changes to the Dockerfile.
+  rebuild:
+    desc: Force rebuild the Docker image
+    cmds:
+      - echo "Rebuilding LAMP image..."
+      - docker-compose build --no-cache
+      - echo "Rebuild complete. Run 'task up' to start."
+
+  # ---------------------------------------------------------------------------
+  # reset-db - Reset Database
+  # ---------------------------------------------------------------------------
+  # Deletes all MySQL data and reinitializes the database.
+  # WARNING: This will delete all data!
+  reset-db:
+    desc: Reset database to initial state (WARNING - deletes all data!)
+    cmds:
+      - echo "WARNING - This will delete all database data!"
+      - echo "Press Ctrl+C within 5 seconds to cancel..."
+      - sleep 5
+      - echo "Stopping container and removing data volume..."
+      - docker-compose down -v
+      - echo "Restarting with fresh database..."
+      - docker-compose up -d --build
+      - echo "Database has been reset."
+
+  # ---------------------------------------------------------------------------
+  # clean - Full Cleanup
+  # ---------------------------------------------------------------------------
+  # Removes containers, images, and volumes. Complete reset.
+  # Useful when you want to start completely fresh.
+  clean:
+    desc: Remove all containers, images, and volumes
+    cmds:
+      - echo "Cleaning up everything..."
+      - docker-compose down -v --rmi local
+      - echo "Cleanup complete. Run 'task up' to rebuild from scratch."
+
+  # ---------------------------------------------------------------------------
+  # info - Show Project Information
+  # ---------------------------------------------------------------------------
+  # Displays helpful information about the project.
+  info:
+    desc: Show project information and URLs
+    cmds:
+      - |
+        echo "============================================================"
+        echo "                    LAMP Stack Demo                          "
+        echo "============================================================"
+        echo "  Web Application:  http://localhost:8080"
+        echo "  MySQL Host:       localhost:3307"
+        echo "  MySQL User:       root"
+        echo "  MySQL Password:   rootpassword"
+        echo "  Database Name:    lamp_demo"
+        echo "------------------------------------------------------------"
+        echo "  Common Commands:"
+        echo "    task up        - Start the stack"
+        echo "    task down      - Stop the stack"
+        echo "    task logs      - View logs"
+        echo "    task shell     - Open container shell"
+        echo "    task mysql     - Open MySQL CLI"
+        echo "============================================================"

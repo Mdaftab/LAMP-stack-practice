@@ -1,0 +1,103 @@
+You are a senior DevOps engineer. Your task is to design and document a complete LAMP stack automation setup intended for demo and learning purposes.
+
+Core Requirements
+
+Technology Stack
+
+Linux (single base image)
+
+Apache
+
+PHP
+
+MySQL
+
+Docker for containerization
+
+Taskfile (task) for stack automation (start/stop/build)
+
+Architecture
+
+Use Docker to orchestrate the stack
+
+Prefer one Linux-based image and install Apache, PHP, and MySQL within it
+
+Clearly explain service configuration and internal connections
+
+Ensure MySQL persistence using volumes
+
+Demo Web Application
+
+Include a simple open-source or custom demo PHP application
+
+The app must:
+
+Connect to MySQL
+
+Insert data into the database
+
+Retrieve and display stored data
+
+Clearly demonstrate the LAMP stack integration
+
+Automation
+
+Provide a Taskfile.yml that includes tasks for:
+
+task up → build and start the stack
+
+task down → stop and clean up containers
+
+(Optional) logs, rebuild, reset database
+
+Documentation
+
+Provide a complete README.md that includes:
+
+Project overview
+
+Stack architecture explanation
+
+Prerequisites
+
+Step-by-step setup instructions
+
+How the demo app works
+
+How data flows from PHP → MySQL
+
+How to use Task commands
+
+Troubleshooting tips
+
+Deliverables
+
+Folder structure
+
+Dockerfile
+
+docker-compose.yml (if used)
+
+Taskfile.yml
+
+Demo PHP application source code
+
+SQL initialization script (if applicable)
+
+README.md
+
+Quality Expectations
+
+Clean, readable configuration files
+
+Well-commented code
+
+Clear explanations suitable for beginners
+
+Best practices for Docker and LAMP demos
+
+Output Format
+
+Present all files with clear filenames and code blocks
+
+Include brief explanations after each major section

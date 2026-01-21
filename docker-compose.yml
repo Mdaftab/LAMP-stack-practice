@@ -1,0 +1,78 @@
+# =============================================================================
+# Docker Compose Configuration
+# =============================================================================
+# Docker Compose is a tool for defining and running multi-container Docker apps.
+# In our case, we're using it for a single container, but it provides:
+# - Easy volume management for data persistence
+# - Simple port mapping configuration
+# - Environment variable management
+# - Convenient commands (docker-compose up/down)
+#
+# Why use docker-compose for a single container?
+# - Easier than remembering long docker run commands
+# - Configuration is documented in this file
+# - Volume and network setup is cleaner
+# =============================================================================
+
+version: '3.8'
+
+services:
+  # ---------------------------------------------------------------------------
+  # LAMP Service - Our single container running Linux + Apache + MySQL + PHP
+  # ---------------------------------------------------------------------------
+  lamp:
+    # Build configuration - tells Docker how to create our image
+    build:
+      # Context: The directory containing the Dockerfile
+      context: ./docker
+      # Dockerfile: Name of the Dockerfile to use
+      dockerfile: Dockerfile
+    
+    # Container name - makes it easy to reference in commands
+    container_name: lamp-demo
+    
+    # Port mapping - HOST:CONTAINER
+    # Access the web app at http://localhost:8080
+    ports:
+      - "80:80"        # Map host port 80 to container port 80 (Apache)
+      - "8080:80"      # Also keep 8080 as backup
+      - "3307:3306"    # Map host port 3307 to container port 3306 (MySQL)
+                       # Using 3307 to avoid conflicts with local MySQL
+    
+    # Volume mounts
+    volumes:
+      # Application code - mount our app directory into the container
+      # This allows live editing without rebuilding the container
+      - ./app:/var/www/html
+      
+      # SQL initialization script
+      - ./sql/init.sql:/docker-entrypoint-initdb.d/init.sql
+      
+      # MySQL data persistence
+      # Named volume ensures data survives container restarts
+      - mysql_data:/var/lib/mysql
+    
+    # Environment variables
+    environment:
+      # These can be used to customize the setup
+      - MYSQL_ROOT_PASSWORD=rootpassword
+    
+    # Restart policy - automatically restart if container crashes
+    restart: unless-stopped
+    
+    # Health check - verify the container is working correctly
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost/"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 60s
+
+# =============================================================================
+# Named Volumes
+# =============================================================================
+# Named volumes are managed by Docker and persist data even when containers
+# are removed. This is essential for database data.
+volumes:
+  mysql_data:
+    name: lamp-demo-mysql-data
